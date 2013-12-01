@@ -46,10 +46,10 @@ Object::Object(spriteSheet _sprites, int frames, Vector2D pos, SDL_Renderer* ren
 	position.xV = pos.xV;
 	position.yV = pos.yV;
 	renderer = rendererErs;
-	self = NULL;
+	self = _sprites.getImage();
 	spriteSheeted = true;
 	frame = frames;
-	sprites = &_sprites;
+	sprites = _sprites;
 	int w, h = NULL;
 	SDL_QueryTexture(self, NULL, NULL, &w, &h);
 	coords.init(pos, w, h);
@@ -63,7 +63,9 @@ void Object::render(Camera cam){
 	}
 	else
 	{
-		sprites->render(position.xValue(), position.yValue(), frame, sequence, cam);
+		printf("Render time\n");
+		sprites.render(position.xV, position.yV, frame, sequence, cam);
+		printf("Done rendering\n");
 	}
 }
 

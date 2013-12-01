@@ -24,7 +24,9 @@ object_group World::getObjectGroup()
 void World::render()
 {
 	bckrnd->render();
+
 	plyr.render(cam);
+
 	objects.render(cam);
 }
 

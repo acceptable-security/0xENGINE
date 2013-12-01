@@ -31,7 +31,7 @@ class Object
 		std::string sequence;
 		bool rendering;
 		bool spriteSheeted;
-		spriteSheet* sprites;
+		spriteSheet sprites;
 		int frame;
 		SDL_Renderer* renderer;
 		SDL_Texture* self;

@@ -2,13 +2,17 @@
 #include "object_group.h"
 #include "image_functions.h"
 #include "object.h"
-
+#include <vector>
 void object_group::render(Camera cam)
 {
-	for(unsigned int i=0;i<objectList.size();i++)
+	Object b;
+	printf("Object_Group Size: %d\n", objectList.size());
+	for(std::vector<Object>::const_iterator it=objectList.begin(), end=objectList.end(); it!=end; ++it)
 	{
-		objectList[i].render(cam);
+		b = *it;
+		b.render(cam);
 	}
+	printf("All done!\n");
 }
 
 void object_group::empty()
@@ -29,8 +33,8 @@ void object_group::clean()
 
 void object_group::append(Object* obj)
 {
-	if(isIn(*obj) == false)
-		objectList.push_back(*obj);
+	printf("ADDING POS: (%d,%d)", obj->getCoordSet().getPosition().xV,obj->getCoordSet().getPosition().yV);
+	objectList.push_back(*obj);
 }
 
 void object_group::remove(Object obj)

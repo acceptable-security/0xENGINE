@@ -69,6 +69,11 @@ int main( int argc, char* args[] )
 	init();
 
 	//Sound music ("LOOPABLE1.wav",true);
+	spriteSheet *teste = new spriteSheet("Untitled.png",renderer);
+	teste->newSequence("first",0);
+	teste->addCoords(0,0,1099,57,"first");
+
+	Object objtest(*teste, 0, Vector2D(0,300),renderer, 0, "first");
 
 	spriteSheet *test = new spriteSheet("testspritesheet.png", renderer);
 
@@ -91,9 +96,11 @@ int main( int argc, char* args[] )
 	player *plyr = new player(Vector2D(0,0), test, 10, 15, 6, 128, 128);
 
 	World wrld(1, "stars.png", cam, renderer, plyr);
+	///wrld.addObject(objtest);
 
 	Level lvl(renderer,"level.lvl");
 	lvl.Load();
+	//lvl.addObject(objtest);
 	lvl.loadToWorld(&wrld);
 
 	bool alive = true;
@@ -149,8 +156,8 @@ int main( int argc, char* args[] )
 			}
 		}
 		wrld.update(upKey, downKey, leftKey, rightKey);
-		wrld.render();
 		
+		wrld.render();
 		SDL_RenderPresent(renderer);
 
 		frame++;
@@ -163,7 +170,7 @@ int main( int argc, char* args[] )
 
 	test->clean();
 	wrld.clean();
-	lvl.clean();
+	//lvl.clean();
 	
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(mainwindow);

@@ -102,7 +102,6 @@ void player::do_collisions(int velX, int velY, std::vector<Object> object_list)
 			//printf("CHEKING AT %i %i\n", cords.getPosition().xV, cords.getPosition().yV);
 			if(is_colliding(cords, obj.getCoordSet()))
 			{
-				//printf("COLLISION BITCHES\n");
 				if(obj.getDamage() > 0)
 				{
 					//take damage like a man.
@@ -179,7 +178,7 @@ void player::render(Camera cam)
 	int x = position->xV;
 	int y = position->yV;
 
-	sequences->renderNext(x, y,  cam,true, currAnimName);
+	sequences->renderNext(x, y, cam, true, currAnimName);
 	//hasFlipped = false;
 }
 /*
