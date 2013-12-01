@@ -13,7 +13,7 @@ class spriteSheet
 	//std::vector<SDL_Rect[]> images;
 	SDL_Texture* image;
 	SDL_Renderer* renderer;
-	char* filename;
+	std::string filename;
 	std::map<std::string,std::vector<SDL_Rect>> animList;
 	std::map<std::string,int> numList;
 	std::map<std::string,int> changeList;
@@ -22,7 +22,7 @@ class spriteSheet
 
 	public:
 		spriteSheet(){};
-		spriteSheet(char* filename, SDL_Renderer*);
+		spriteSheet(std::string filename, SDL_Renderer*);
 		spriteSheet(const char* filename, SDL_Renderer*);
 
 		void newSequence(std::string, int);

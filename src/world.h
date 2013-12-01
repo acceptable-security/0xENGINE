@@ -9,7 +9,6 @@
 #pragma once
 class World
 {
-		object_group objects;
 		char* background_file;
 		player plyr;
 		Camera cam;
@@ -17,12 +16,13 @@ class World
 		SDL_Renderer* renderer;
 		background* bckrnd;
 	public:
+		object_group objects;
 		World::World(){};
 		World::World(int, char*, Camera, SDL_Renderer*, player*);
 		
 		void easyObject(spriteSheet sprites, std::string sequence, int frame, Vector2D pos, int damage);
 		void easyObject(char* filename, Vector2D pos, int damage);
-		void addObject(Object obj);
+		void appObject(Object obj);
 		void clearObjects();
 
 		object_group getObjectGroup();

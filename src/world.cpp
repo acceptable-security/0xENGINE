@@ -23,6 +23,7 @@ object_group World::getObjectGroup()
 
 void World::render()
 {
+	//printf("SIZE %d\n", objects.objectList.size());
 	bckrnd->render();
 
 	plyr.render(cam);
@@ -32,13 +33,16 @@ void World::render()
 
 void World::update(bool up, bool down, bool left, bool right)
 {
+	//printf("SIZE %d\n", objects.objectList.size());
 	plyr.update(up,down,left,right,objects.getList());
 	cam.update(plyr);
 }
 
-void World::addObject(Object _obj)
+void World::appObject(Object _obj)
 {
-	objects.append(&_obj);
+	//printf("WORLD-POS: %d %d\n", _obj.getPosition().xV, _obj.getPosition().yV);
+	objects.append(_obj);
+	//printf("SIZE %d\n", objects.objectList.size());
 }
 
 void World::clearObjects()
@@ -49,13 +53,13 @@ void World::clearObjects()
 void World::easyObject(spriteSheet sprites, std::string sequence, int frame, Vector2D pos, int damage)
 {
 	Object obj(sprites, frame, pos, renderer, damage, sequence);
-	addObject(obj);
+	appObject(obj);
 }
 
 void World::easyObject(char* filename, Vector2D pos, int damage)
 {
 	Object obj(filename, pos, renderer, damage);
-	addObject(obj);
+	appObject(obj);
 }
 
 void World::clean()

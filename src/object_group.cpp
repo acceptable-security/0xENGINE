@@ -3,25 +3,31 @@
 #include "image_functions.h"
 #include "object.h"
 #include <vector>
+
+//int object_group::amount()
+//{
+//	return objectList.size();
+//}
+
 void object_group::render(Camera cam)
 {
-	Object b;
-	printf("Object_Group Size: %d\n", objectList.size());
-	for(std::vector<Object>::const_iterator it=objectList.begin(), end=objectList.end(); it!=end; ++it)
+	//printf("Object_Group Size: %d\n", objectList.size());
+	for(unsigned int i=0;i<objectList.size();i++)
 	{
-		b = *it;
-		b.render(cam);
+		objectList[i].render(cam);
 	}
-	printf("All done!\n");
+	//printf("All done!\n");
 }
 
 void object_group::empty()
 {
+	printf("EMPTYING\n");
 	objectList.empty();
 }
 
 void object_group::clean()
 {
+	printf("CLEANING\n");
 	Object* obj;
 	for(unsigned int i=0;i<objectList.size();i++)
 	{
@@ -31,14 +37,17 @@ void object_group::clean()
 	}
 }
 
-void object_group::append(Object* obj)
+void object_group::append(Object obj)
 {
-	printf("ADDING POS: (%d,%d)", obj->getCoordSet().getPosition().xV,obj->getCoordSet().getPosition().yV);
-	objectList.push_back(*obj);
+	printf("ADDING POS: (%d,%d)\n", obj.getCoordSet().getPosition().xV,obj.getCoordSet().getPosition().yV);
+	objectList.push_back(obj);
+	printf("SIZE NOW %d\n",objectList.size());
+
 }
 
 void object_group::remove(Object obj)
 {
+	printf("REMOVING OBJ\n");
 	if(isIn(obj) == false)
 		return;
 	int f = -1;

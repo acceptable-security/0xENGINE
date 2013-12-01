@@ -50,6 +50,6 @@ class Level
 		void newMusic(std::string musicfile);
 		
 		void addObject(Object obj);
-		void loadToWorld(World* wrld);
+		void loadToWorld(World wrld);
 };
 #endif

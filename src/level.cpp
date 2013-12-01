@@ -91,17 +91,18 @@ void Level::addObject(Object obj)
 	objlist.push_back(obj);
 }
 
-void Level::loadToWorld(World* wrld)
+void Level::loadToWorld(World wrld)
 {
-	wrld->clearObjects();
+	wrld.clearObjects();
 	//printf("SIZE %d\n", objlist.size());
 	for(int i = 0; i < objlist.size(); i++)
 	{
-		//printf("OBJECT-POS: %d %d\n", objlist[i].getPosition().xV, objlist[i].getPosition().yV);
-		wrld->addObject(objlist[i]);
+		printf("OBJECT-POS: %d %d\n", objlist[i].getPosition().xV, objlist[i].getPosition().yV);
+		wrld.appObject(objlist[i]);
 	}
-	wrld->setBackground(&back);
+	wrld.setBackground(&back);
 	//printf("\ndone done\n");
+	printf("SIZE %d\n", wrld.objects.objectList.size());
 }
 
 void Level::load_music()
@@ -151,15 +152,14 @@ bool Level::Load()
 					case cmd_obj:
 						damage = atoi(vec[5].c_str());
 						frame = atoi(vec[2].c_str());
-						sprite = sprites[vec[1]];
 						seq = vec[6];
 						vect = Vector2D(atoi(vec[3].c_str()),atoi(vec[4].c_str()));
 						//printf("Adding Object: (%d,%d)\n", vect.xV, vect.yV);
-						addObject(Object(sprite, frame, vect, renderer, damage, seq));
+						addObject(Object(sprites[vec[1]], frame, vect, renderer, damage, seq));
 						break;
 					case cmd_spritesheet:
-						printf("STARTING SPRITE: %s\n",vec[2].c_str());
-						sprites[vec[2]] = spriteSheet(vec[1].c_str(), renderer);
+						//printf("STARTING SPRITE: %s with fiel %s\n",vec[2].c_str(), vec[1].c_str());
+						sprites[vec[2]] = spriteSheet(vec[1], renderer);
 						break;
 					case cmd_back:
 						back = background((char *)vec[1].c_str(), renderer);
@@ -167,7 +167,7 @@ bool Level::Load()
 					case cmd_coord:
 						sprites[vec[1]].addCoords(atoi(vec[3].c_str()), atoi(vec[4].c_str()), atoi(vec[5].c_str()), atoi(vec[6].c_str()), vec[2]);
 					case cmd_sequence:
-						printf("%s GETS NEW SEQ %s\n",vec[1].c_str(), vec[2].c_str());
+						//printf("%s GETS NEW SEQ %s\n",vec[1].c_str(), vec[2].c_str());
 						sprites[vec[1]].newSequence(vec[2],atoi(vec[3].c_str()));
 					default:
 						break;

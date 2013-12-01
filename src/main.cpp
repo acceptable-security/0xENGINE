@@ -68,8 +68,11 @@ int main( int argc, char* args[] )
 {
 	init();
 
+	Level lvl(renderer,"level.lvl");
+	lvl.Load();
+
 	//Sound music ("LOOPABLE1.wav",true);
-	spriteSheet *teste = new spriteSheet("Untitled.png",renderer);
+	spriteSheet *teste = new spriteSheet((const char*)"Untitled.png",renderer);
 	teste->newSequence("first",0);
 	teste->addCoords(0,0,1099,57,"first");
 
@@ -96,13 +99,12 @@ int main( int argc, char* args[] )
 	player *plyr = new player(Vector2D(0,0), test, 10, 15, 6, 128, 128);
 
 	World wrld(1, "stars.png", cam, renderer, plyr);
-	///wrld.addObject(objtest);
+	///wrld.appObject(objtest);
 
-	Level lvl(renderer,"level.lvl");
-	lvl.Load();
-	//lvl.addObject(objtest);
-	lvl.loadToWorld(&wrld);
-
+	printf("SIZE %d\n", wrld.objects.objectList.size());
+	///lvl.addObject(objtest);
+	lvl.loadToWorld(wrld);
+	printf("SIZE %d\n", wrld.objects.objectList.size());
 	bool alive = true;
 	bool music_bool = true;
 	bool music2_bool = true;
@@ -110,6 +112,7 @@ int main( int argc, char* args[] )
 	Timer fps;
 	//music.play();
 	//lvl.playMusic();
+	printf("SIZE %d\n", wrld.objects.objectList.size());
 	while(alive)
 	{
 		fps.start();

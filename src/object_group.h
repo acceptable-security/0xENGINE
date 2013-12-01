@@ -6,13 +6,14 @@
 
 class object_group
 {
-		std::vector<Object> objectList;
 	public:
+		std::vector<Object> objectList;
 		object_group(){};
 
-		void append(Object*);
+		void append(Object);
 		void remove(Object);
 		void empty();
+		//int amount();
 
 		void render(Camera cam);
 		void clean();
