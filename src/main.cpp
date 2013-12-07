@@ -70,41 +70,40 @@ int main( int argc, char* args[] )
 
 	Level lvl(renderer,"level.lvl");
 	lvl.Load();
+	//printf("the num says bitter %d\n", lvl.objlist[0].sprites.num);
 
 	//Sound music ("LOOPABLE1.wav",true);
-	spriteSheet *teste = new spriteSheet((const char*)"Untitled.png",renderer);
-	teste->newSequence("first",0);
-	teste->addCoords(0,0,1099,57,"first");
+	/*spriteSheet teste ((const char*)"Untitled.png",renderer);
+	teste.newSequence("first",0);
+	teste.addCoords(0,0,1099,57,"first");
 
-	Object objtest(*teste, 0, Vector2D(0,300),renderer, 0, "first");
+	Object objtest(teste, 0, Vector2D(0,300),renderer, 0, "first");
+	lvl.addObject(objtest);*/
 
-	spriteSheet *test = new spriteSheet("testspritesheet.png", renderer);
+	spriteSheet test("testspritesheet.png", renderer);
 
-	test->newSequence("still",30);
-	test->addCoords(0,0,128,128,"still");
+	test.newSequence("still",30);
+	test.addCoords(0,0,128,128,"still");
 
-	test->newSequence("jumping",10);
-	test->addCoords(0,256,128,128,"jumping");
-	test->addCoords(128,256,128,128,"jumping");
+	test.newSequence("jumping",10);
+	test.addCoords(0,256,128,128,"jumping");
+	test.addCoords(128,256,128,128,"jumping");
 
-	test->newSequence("running",15);
-	test->addCoords(0,0,128,128,"running");
-	test->addCoords(128,0,128,128,"running");
+	test.newSequence("running",15);
+	test.addCoords(0,0,128,128,"running");
+	test.addCoords(128,0,128,128,"running");
 
-	test->newSequence("falling",10);
-	test->addCoords(0,128,128,128,"falling");
-	test->addCoords(128,128,128,128,"falling");
+	test.newSequence("falling",10);
+	test.addCoords(0,128,128,128,"falling");
+	test.addCoords(128,128,128,128,"falling");
 
 	Camera cam;
-	player *plyr = new player(Vector2D(0,0), test, 10, 15, 6, 128, 128);
+	player *plyr = new player(Vector2D(0,0), &test, 10, 15, 6, 128, 128);
 
 	World wrld(1, "stars.png", cam, renderer, plyr);
-	///wrld.appObject(objtest);
-
-	printf("SIZE %d\n", wrld.objects.objectList.size());
-	///lvl.addObject(objtest);
-	lvl.loadToWorld(wrld);
-	printf("SIZE %d\n", wrld.objects.objectList.size());
+	//wrld.appObject(objtest);
+	wrld.load_level(lvl);
+	wrld.objects.objectList[0].sprites.addCoords(0, 0, 1099, 57,"teste");
 	bool alive = true;
 	bool music_bool = true;
 	bool music2_bool = true;
@@ -112,7 +111,6 @@ int main( int argc, char* args[] )
 	Timer fps;
 	//music.play();
 	//lvl.playMusic();
-	printf("SIZE %d\n", wrld.objects.objectList.size());
 	while(alive)
 	{
 		fps.start();
@@ -171,7 +169,7 @@ int main( int argc, char* args[] )
 		}
 	}
 
-	test->clean();
+	test.clean();
 	wrld.clean();
 	//lvl.clean();
 	

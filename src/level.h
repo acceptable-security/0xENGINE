@@ -23,19 +23,19 @@ for every object
 #include "object.h"
 #include "sound.h"
 #include <map>
-#include "world.h"
 #include <vector>
 #include "template.h"
 class Level
 {
-		std::map<std::string, spriteSheet> sprites; 
-		std::vector<Object> objlist;
 		SDL_Renderer* renderer;
 		std::string filename;
 		std::string music_file;
-		background back;
-		Sound* music;
 	public:
+		std::map<std::string, spriteSheet> sprites; 
+		Sound* music;
+		background back;
+		std::vector<Object> objlist;
+		std::vector<std::string> vec;
 		Level::Level(){};
 		Level::Level(SDL_Renderer*, std::string filename);
 
@@ -50,6 +50,5 @@ class Level
 		void newMusic(std::string musicfile);
 		
 		void addObject(Object obj);
-		void loadToWorld(World wrld);
 };
 #endif

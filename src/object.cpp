@@ -16,6 +16,13 @@ background::background(char* filename, SDL_Renderer* rendr)
 	self = load_image(filename, renderer);
 }
 
+background::background(std::string filename, SDL_Renderer* rendr)
+{
+	file = (char *)filename.c_str();
+	renderer = rendr;
+	self = load_image((char *)filename.c_str(), renderer);
+}
+
 void background::render()
 {
 	apply_background(self, renderer);
@@ -63,7 +70,7 @@ void Object::render(Camera cam){
 	}
 	else
 	{
-		printf("Render time\n");
+		printf("SPRITE MAN %d\n", sprites.num);
 		sprites.render(position.xV, position.yV, frame, sequence, cam);
 		printf("Done rendering\n");
 	}

@@ -20,6 +20,7 @@ class background
 	public:
 		background(){};
 		background(char*, SDL_Renderer*);
+		background(std::string, SDL_Renderer*);
 
 		void render();
 		void clean();
@@ -31,7 +32,6 @@ class Object
 		std::string sequence;
 		bool rendering;
 		bool spriteSheeted;
-		spriteSheet sprites;
 		int frame;
 		SDL_Renderer* renderer;
 		SDL_Texture* self;
@@ -40,6 +40,7 @@ class Object
 		int damage;
 
 	public:
+		spriteSheet sprites;
 		//Initiation Functions
 		Object(){};
 		Object(char*, Vector2D, SDL_Renderer*, int);

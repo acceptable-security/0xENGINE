@@ -4,3 +4,4 @@ SPRITE Untitled.png test
 SEQUENCE test teste 0
 COORD test teste 0 0 1099 57
 OBJECT test 0 0 300 0 teste
+OBJECT test 0 10 300 0 teste

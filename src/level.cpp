@@ -20,8 +20,6 @@ for every object
 #include <map>
 #include <algorithm>
 #include "level.h"
-#include "world.h"
-
 static enum FileCommand { cmd_back, cmd_music, cmd_spritesheet, cmd_obj, cmd_coord, cmd_sequence};
 static std::map<std::string, FileCommand> FileCommand_vals;
 
@@ -91,20 +89,6 @@ void Level::addObject(Object obj)
 	objlist.push_back(obj);
 }
 
-void Level::loadToWorld(World wrld)
-{
-	wrld.clearObjects();
-	//printf("SIZE %d\n", objlist.size());
-	for(int i = 0; i < objlist.size(); i++)
-	{
-		printf("OBJECT-POS: %d %d\n", objlist[i].getPosition().xV, objlist[i].getPosition().yV);
-		wrld.appObject(objlist[i]);
-	}
-	wrld.setBackground(&back);
-	//printf("\ndone done\n");
-	printf("SIZE %d\n", wrld.objects.objectList.size());
-}
-
 void Level::load_music()
 {
 	music = new Sound(music_file,true);
@@ -130,19 +114,15 @@ bool Level::Load()
 	std::string fix;
 	std::string line;
 	std::ifstream myfile (filename);
-	std::vector<std::string> vec;
 	if(myfile.is_open())
 	{
 		while (getline(myfile,line))
 		{
+			spriteSheet* boob;
 			split(line, vec, ' ');
 			if(vec.size() > 0)
 			{
-				spriteSheet sprite;
-				Vector2D vect;
 				fix = vec[0];
-				int frame, damage;
-				std::string seq;
 				switch(FileCommand_vals[fix])
 				{
 					case cmd_music:
@@ -150,22 +130,25 @@ bool Level::Load()
 						load_music();
 						break;
 					case cmd_obj:
-						damage = atoi(vec[5].c_str());
-						frame = atoi(vec[2].c_str());
-						seq = vec[6];
-						vect = Vector2D(atoi(vec[3].c_str()),atoi(vec[4].c_str()));
-						//printf("Adding Object: (%d,%d)\n", vect.xV, vect.yV);
-						addObject(Object(sprites[vec[1]], frame, vect, renderer, damage, seq));
+						//printf("Adding Object with sprites %d\n", &sprites[vec[1]]);
+						addObject(Object(sprites[vec[1]], atoi(vec[2].c_str()), Vector2D(atoi(vec[3].c_str()),atoi(vec[4].c_str())), renderer, atoi(vec[5].c_str()), vec[6]));
+						//coordsObj[objlist.at(objlist.size()-1)] = coordsAnim[sprites[vec[1]];
 						break;
 					case cmd_spritesheet:
 						//printf("STARTING SPRITE: %s with fiel %s\n",vec[2].c_str(), vec[1].c_str());
 						sprites[vec[2]] = spriteSheet(vec[1], renderer);
+						sprites[vec[2]].setNum(10);
+						//printf("INIT ADDR %d\n", &sprites[vec[2]]); 
 						break;
 					case cmd_back:
-						back = background((char *)vec[1].c_str(), renderer);
+						back = background(vec[1], renderer);
 						break;
 					case cmd_coord:
-						sprites[vec[1]].addCoords(atoi(vec[3].c_str()), atoi(vec[4].c_str()), atoi(vec[5].c_str()), atoi(vec[6].c_str()), vec[2]);
+						boob = &sprites[vec[1]];
+						boob->addCoords(atoi(vec[3].c_str()), atoi(vec[4].c_str()), atoi(vec[5].c_str()), atoi(vec[6].c_str()), vec[2]);
+						//sprites[vec[1]].setNum(atoi(vec[5].c_str()));
+						//printf("COORD ADDR %d\n", &sprites[vec[1]]);
+						printf("NUM %s: %d\n", vec[1].c_str(), sprites[vec[1]].numList[vec[2].c_str()]);
 					case cmd_sequence:
 						//printf("%s GETS NEW SEQ %s\n",vec[1].c_str(), vec[2].c_str());
 						sprites[vec[1]].newSequence(vec[2],atoi(vec[3].c_str()));
@@ -175,6 +158,7 @@ bool Level::Load()
 			}
 		}
 		myfile.close();
+		printf("the number says %d\n", sprites["test"].num);
 		return true;
 	}
 	else

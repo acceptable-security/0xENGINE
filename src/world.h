@@ -5,6 +5,7 @@
 #include "vector.h"
 #include "image_functions.h"
 #include "player.h"
+#include "level.h"
 #include <vector>
 #pragma once
 class World
@@ -14,7 +15,7 @@ class World
 		Camera cam;
 		int gravity;
 		SDL_Renderer* renderer;
-		background* bckrnd;
+		background bckrnd;
 	public:
 		object_group objects;
 		World::World(){};
@@ -30,5 +31,6 @@ class World
 		void render();
 		void update(bool, bool, bool, bool);
 		void clean();
-		void setBackground(background*);
+		void load_level(Level lvl);
+		void setBackground(background);
 };

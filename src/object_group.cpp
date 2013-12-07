@@ -12,7 +12,7 @@
 void object_group::render(Camera cam)
 {
 	//printf("Object_Group Size: %d\n", objectList.size());
-	for(unsigned int i=0;i<objectList.size();i++)
+	for(int i=0;i<objectList.size();i++)
 	{
 		objectList[i].render(cam);
 	}
@@ -21,13 +21,11 @@ void object_group::render(Camera cam)
 
 void object_group::empty()
 {
-	printf("EMPTYING\n");
 	objectList.empty();
 }
 
 void object_group::clean()
 {
-	printf("CLEANING\n");
 	Object* obj;
 	for(unsigned int i=0;i<objectList.size();i++)
 	{
@@ -39,15 +37,12 @@ void object_group::clean()
 
 void object_group::append(Object obj)
 {
-	printf("ADDING POS: (%d,%d)\n", obj.getCoordSet().getPosition().xV,obj.getCoordSet().getPosition().yV);
+	printf("OBJECT_GROUP SAYS %d\n", obj.sprites.num);
 	objectList.push_back(obj);
-	printf("SIZE NOW %d\n",objectList.size());
-
 }
 
 void object_group::remove(Object obj)
 {
-	printf("REMOVING OBJ\n");
 	if(isIn(obj) == false)
 		return;
 	int f = -1;

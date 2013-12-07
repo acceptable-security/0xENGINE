@@ -14,16 +14,20 @@ class spriteSheet
 	SDL_Texture* image;
 	SDL_Renderer* renderer;
 	std::string filename;
-	std::map<std::string,std::vector<SDL_Rect>> animList;
-	std::map<std::string,int> numList;
-	std::map<std::string,int> changeList;
 	std::string currAnim;
-	std::vector<std::string> keyList;
+
 
 	public:
+		int num;
+		std::map<std::string,std::vector<SDL_Rect>> animList;
+		std::map<std::string,int> changeList;
+		std::vector<std::string> keyList;
+		std::map<std::string,int> numList;
 		spriteSheet(){};
 		spriteSheet(std::string filename, SDL_Renderer*);
 		spriteSheet(const char* filename, SDL_Renderer*);
+
+		void setNum(int num);
 
 		void newSequence(std::string, int);
 
