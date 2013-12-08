@@ -26,9 +26,7 @@ class spriteSheet
 		spriteSheet(){};
 		spriteSheet(std::string filename, SDL_Renderer*);
 		spriteSheet(const char* filename, SDL_Renderer*);
-
-		void setNum(int num);
-
+		
 		void newSequence(std::string, int);
 
 		void addCoords(int, int, int, int, std::string); //x, y, w, h, sequence

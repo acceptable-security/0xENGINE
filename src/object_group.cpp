@@ -4,19 +4,12 @@
 #include "object.h"
 #include <vector>
 
-//int object_group::amount()
-//{
-//	return objectList.size();
-//}
-
 void object_group::render(Camera cam)
 {
-	//printf("Object_Group Size: %d\n", objectList.size());
 	for(int i=0;i<objectList.size();i++)
 	{
 		objectList[i].render(cam);
 	}
-	//printf("All done!\n");
 }
 
 void object_group::empty()
@@ -37,7 +30,6 @@ void object_group::clean()
 
 void object_group::append(Object obj)
 {
-	printf("OBJECT_GROUP SAYS %d\n", obj.sprites.num);
 	objectList.push_back(obj);
 }
 

@@ -29,10 +29,10 @@ class Level
 {
 		SDL_Renderer* renderer;
 		std::string filename;
-		std::string music_file;
+
 	public:
-		std::map<std::string, spriteSheet> sprites; 
-		Sound* music;
+		std::map<std::string, spriteSheet> sprites;
+		std::string music_file;
 		background back;
 		std::vector<Object> objlist;
 		std::vector<std::string> vec;
@@ -43,11 +43,6 @@ class Level
 		bool Save();
 
 		void clean();
-
-		void load_music();
-		void playMusic();
-		void stopMusic();
-		void newMusic(std::string musicfile);
 		
 		void addObject(Object obj);
 };

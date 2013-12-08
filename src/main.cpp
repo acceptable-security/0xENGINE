@@ -111,6 +111,7 @@ int main( int argc, char* args[] )
 	Timer fps;
 	//music.play();
 	//lvl.playMusic();
+	wrld.startMusic();
 	while(alive)
 	{
 		fps.start();

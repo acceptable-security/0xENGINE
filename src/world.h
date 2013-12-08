@@ -5,6 +5,7 @@
 #include "vector.h"
 #include "image_functions.h"
 #include "player.h"
+#include "sound.h"
 #include "level.h"
 #include <vector>
 #pragma once
@@ -15,6 +16,8 @@ class World
 		Camera cam;
 		int gravity;
 		SDL_Renderer* renderer;
+		Sound music;
+		std::string music_file;
 		background bckrnd;
 	public:
 		object_group objects;
@@ -33,4 +36,8 @@ class World
 		void clean();
 		void load_level(Level lvl);
 		void setBackground(background);
+		
+		void loadMusic();
+		void startMusic();
+		void stopMusic();
 };

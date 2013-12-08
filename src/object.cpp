@@ -70,9 +70,7 @@ void Object::render(Camera cam){
 	}
 	else
 	{
-		printf("SPRITE MAN %d\n", sprites.num);
 		sprites.render(position.xV, position.yV, frame, sequence, cam);
-		printf("Done rendering\n");
 	}
 }
 

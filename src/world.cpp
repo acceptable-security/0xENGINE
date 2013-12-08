@@ -5,6 +5,7 @@
 #include <string.h>
 #include "image_functions.h"
 #include "player.h"
+#include "sound.h"
 #include "template.h"
 #include <vector>
 
@@ -23,22 +24,32 @@ object_group World::getObjectGroup()
 	return objects;
 }
 
+void World::loadMusic(){
+	music = *new Sound(music_file, true);
+}
+void World::startMusic(){
+	music.play();
+}
+void World::stopMusic(){
+	music.stop();
+}
+
 void World::load_level(Level lvl)
 {
 	clearObjects();
-	//printf("SIZE %d\n", objlist.size());
-	for(int i = 0; i < lvl.objlist.size(); i++)
+	int listSize = lvl.objlist.size();
+	for(int i = 0; i < listSize; i++)
 	{
 		appObject(lvl.objlist[i]);
 	}
 	setBackground(lvl.back);
-	//printf("\ndone done\n");
+	music_file = lvl.music_file;
+	loadMusic();
 }
 
 
 void World::render()
 {
-	//printf("SIZE %d\n", objects.objectList.size());
 	bckrnd.render();
 
 	plyr.render(cam);
@@ -48,17 +59,13 @@ void World::render()
 
 void World::update(bool up, bool down, bool left, bool right)
 {
-	//printf("SIZE %d\n", objects.objectList.size());
 	plyr.update(up,down,left,right,objects.getList());
 	cam.update(plyr);
 }
 
 void World::appObject(Object _obj)
 {
-	//printf("WORLD-POS: %d %d\n", _obj.getPosition().xV, _obj.getPosition().yV);
 	objects.append(_obj);
-	printf("APP BOYS %d\n", _obj.sprites.num);
-	//printf("SIZE %d\n", objects.objectList.size());
 }
 
 void World::clearObjects()

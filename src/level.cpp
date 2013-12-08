@@ -49,11 +49,6 @@ Level::Level(SDL_Renderer* _renderer, std::string _filename)
 	FileCommand_vals["OBJECT"] = cmd_obj;
 }
 
-void Level::clean()
-{
-	music->free();
-}
-
 unsigned int split(const std::string &txt, std::vector<std::string> &strs, char ch)
 {
     unsigned int pos = txt.find( ch );
@@ -89,26 +84,6 @@ void Level::addObject(Object obj)
 	objlist.push_back(obj);
 }
 
-void Level::load_music()
-{
-	music = new Sound(music_file,true);
-}
-
-void Level::playMusic()
-{
-	music->play();
-}
-void Level::stopMusic()
-{
-	music->stop();
-}
-
-void Level::newMusic(std::string filename)
-{
-	music_file = filename;
-	load_music();
-}
-
 bool Level::Load()
 {
 	std::string fix;
@@ -127,18 +102,12 @@ bool Level::Load()
 				{
 					case cmd_music:
 						music_file = vec[1];
-						load_music();
 						break;
 					case cmd_obj:
-						//printf("Adding Object with sprites %d\n", &sprites[vec[1]]);
 						addObject(Object(sprites[vec[1]], atoi(vec[2].c_str()), Vector2D(atoi(vec[3].c_str()),atoi(vec[4].c_str())), renderer, atoi(vec[5].c_str()), vec[6]));
-						//coordsObj[objlist.at(objlist.size()-1)] = coordsAnim[sprites[vec[1]];
 						break;
 					case cmd_spritesheet:
-						//printf("STARTING SPRITE: %s with fiel %s\n",vec[2].c_str(), vec[1].c_str());
 						sprites[vec[2]] = spriteSheet(vec[1], renderer);
-						sprites[vec[2]].setNum(10);
-						//printf("INIT ADDR %d\n", &sprites[vec[2]]); 
 						break;
 					case cmd_back:
 						back = background(vec[1], renderer);
@@ -146,12 +115,8 @@ bool Level::Load()
 					case cmd_coord:
 						boob = &sprites[vec[1]];
 						boob->addCoords(atoi(vec[3].c_str()), atoi(vec[4].c_str()), atoi(vec[5].c_str()), atoi(vec[6].c_str()), vec[2]);
-						//sprites[vec[1]].setNum(atoi(vec[5].c_str()));
-						//printf("COORD ADDR %d\n", &sprites[vec[1]]);
-						printf("NUM %s: %d\n", vec[1].c_str(), sprites[vec[1]].numList[vec[2].c_str()]);
 						break;
 					case cmd_sequence:
-						//printf("%s GETS NEW SEQ %s\n",vec[1].c_str(), vec[2].c_str());
 						sprites[vec[1]].newSequence(vec[2],atoi(vec[3].c_str()));
 					default:
 						break;
@@ -159,7 +124,6 @@ bool Level::Load()
 			}
 		}
 		myfile.close();
-		printf("the number says %d\n", sprites["test"].num);
 		return true;
 	}
 	else
