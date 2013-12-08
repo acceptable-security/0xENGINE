@@ -149,6 +149,7 @@ bool Level::Load()
 						//sprites[vec[1]].setNum(atoi(vec[5].c_str()));
 						//printf("COORD ADDR %d\n", &sprites[vec[1]]);
 						printf("NUM %s: %d\n", vec[1].c_str(), sprites[vec[1]].numList[vec[2].c_str()]);
+						break;
 					case cmd_sequence:
 						//printf("%s GETS NEW SEQ %s\n",vec[1].c_str(), vec[2].c_str());
 						sprites[vec[1]].newSequence(vec[2],atoi(vec[3].c_str()));
